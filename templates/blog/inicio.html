@@ -1,11 +1,11 @@
 {% extends "blog/base.html" %}
 
-{% block titulo %}Inicio — BlogDeMauro{% endblock %}
+{% block titulo %}Inicio — CoderBlog{% endblock %}
 
 {% block contenido %}
 <div class="page-header">
     <h1>Últimas publicaciones</h1>
-    <p>Bienvenido al blog. Aquí encontrarás los artículos más recientes.</p>
+    <p>Bienvenido al blog. Acá vas a ver los artículos más recientes.</p>
 </div>
 
 {% if articulos %}
@@ -36,12 +36,10 @@
     {% endfor %}
 {% else %}
     <div class="card">
-        <div class="no-results">
-            <div class="icon">📝</div>
-            <h2>No hay artículos todavía</h2>
-            <p>Empezá publicando algo nuevo.</p>
-            <a href="{% url 'blog:crear_articulo' %}" class="btn btn-primary" style="margin-top: 1rem; text-decoration: none;">Crear primer artículo</a>
-        </div>
+        <h2>No hay artículos todavía</h2>
+        <p class="excerpt">Empezá publicando algo nuevo.</p>
+        <a href="{% url 'blog:crear_articulo' %}" class="btn btn-primary" style="margin-top: 1rem; text-decoration: none; width: auto;">Crear primer artículo</a>
     </div>
 {% endif %}
 {% endblock %}
+

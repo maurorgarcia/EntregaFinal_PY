@@ -1,0 +1,40 @@
+{% extends "blog/base.html" %}
+
+{% block titulo %}Page — CoderBlog{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <h1>{% if object %}Editar página{% else %}Crear página{% endif %}</h1>
+    <p>Completá los campos y guardá los cambios.</p>
+</div>
+
+<div class="form-wrapper">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}
+
+        <div class="form-group">
+            <label for="{{ form.titulo.id_for_label }}">Título</label>
+            {{ form.titulo }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.subtitulo.id_for_label }}">Subtítulo</label>
+            {{ form.subtitulo }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.cuerpo.id_for_label }}">Cuerpo</label>
+            {{ form.cuerpo }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.imagen.id_for_label }}">Imagen</label>
+            {{ form.imagen }}
+        </div>
+
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </form>
+</div>
+{% endblock %}
+

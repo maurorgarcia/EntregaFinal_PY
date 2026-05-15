@@ -1,0 +1,51 @@
+{% extends "blog/base.html" %}
+
+{% block titulo %}Pages — CoderBlog{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <h1>Páginas</h1>
+    <p>Listado de páginas publicadas.</p>
+</div>
+
+<form method="get" class="search-bar">
+    <input class="form-control" type="text" name="q" value="{{ q }}" placeholder="Buscar páginas...">
+    <button class="btn btn-outline" type="submit">Buscar</button>
+</form>
+
+{% if paginas %}
+    {% for pagina in paginas %}
+    <div class="card">
+        <h2>{{ pagina.titulo }}</h2>
+        <div class="meta">
+            <span>✍️ {{ pagina.autor.username }}</span>
+            <span>📅 {{ pagina.fecha|date:"d M Y, H:i" }}</span>
+        </div>
+        <p class="excerpt"><em>{{ pagina.subtitulo }}</em></p>
+        <p class="excerpt">{{ pagina.cuerpo|striptags|truncatewords:35 }}</p>
+        <div style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a class="btn btn-primary" style="width: auto; text-decoration: none;" href="{% url 'blog:page_detail' pagina.pk %}">Leer más</a>
+            {% if request.user.is_authenticated and request.user.id == pagina.autor_id %}
+                <a class="btn btn-outline" style="width: auto; text-decoration: none;" href="{% url 'blog:page_update' pagina.pk %}">Editar</a>
+                <a class="btn btn-outline" style="width: auto; text-decoration: none;" href="{% url 'blog:page_delete' pagina.pk %}">Borrar</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="card">
+        <h2>No hay páginas aún</h2>
+        <p class="excerpt">
+            {% if q %}
+                No se encontraron páginas para tu búsqueda.
+            {% else %}
+                Todavía no se creó ninguna página.
+            {% endif %}
+        </p>
+        {% if request.user.is_authenticated %}
+            <a class="btn btn-primary" style="margin-top: 1rem; text-decoration: none;" href="{% url 'blog:page_create' %}">Crear primera página</a>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}
+
