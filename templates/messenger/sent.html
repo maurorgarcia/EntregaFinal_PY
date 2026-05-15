@@ -1,0 +1,33 @@
+{% extends "blog/base.html" %}
+
+{% block titulo %}Enviados — CoderBlog{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <h1>Mensajes enviados</h1>
+    <p>Historial de mensajes que enviaste.</p>
+</div>
+
+<div style="margin-bottom: 1.25rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+    <a class="btn btn-primary" style="width: auto; text-decoration: none;" href="{% url 'messenger:compose' %}">Nuevo mensaje</a>
+    <a class="btn btn-outline" style="width: auto; text-decoration: none;" href="{% url 'messenger:inbox' %}">Recibidos</a>
+</div>
+
+{% if mensajes %}
+    {% for m in mensajes %}
+        <div class="card">
+            <div class="meta">
+                <span>Para: {{ m.receptor.username }}</span>
+                <span>📅 {{ m.fecha|date:"d M Y, H:i" }}</span>
+            </div>
+            <p class="excerpt">{{ m.contenido|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="card">
+        <h2>No enviaste mensajes aún</h2>
+        <p class="excerpt">Usá “Nuevo mensaje” para escribirle a otro usuario.</p>
+    </div>
+{% endif %}
+{% endblock %}
+
