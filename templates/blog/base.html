@@ -80,6 +80,24 @@
             transition: var(--transition);
         }
 
+        .navbar-links form {
+            margin: 0;
+        }
+
+        .navbar-links button {
+            appearance: none;
+            background: transparent;
+            border: 0;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
         .navbar-links a:hover {
             color: var(--text-primary);
             background: var(--accent-soft);
@@ -89,6 +107,11 @@
             color: var(--text-primary);
             background: var(--accent-soft);
             font-weight: 700;
+        }
+
+        .navbar-links button:hover {
+            color: var(--text-primary);
+            background: var(--accent-soft);
         }
 
         /* Contenedor principal */
@@ -282,7 +305,12 @@
                     <li><a href="{% url 'blog:page_create' %}">+ Page</a></li>
                     <li><a href="{% url 'messenger:inbox' %}">Mensajes</a></li>
                     <li><a href="{% url 'accounts:profile' %}">Perfil</a></li>
-                    <li><a href="{% url 'accounts:logout' %}">Salir</a></li>
+                    <li>
+                        <form method="post" action="{% url 'accounts:logout' %}">
+                            {% csrf_token %}
+                            <button type="submit">Salir</button>
+                        </form>
+                    </li>
                 {% else %}
                     <li><a href="{% url 'accounts:login' %}">Ingresar</a></li>
                     <li><a href="{% url 'accounts:signup' %}">Registrarme</a></li>
