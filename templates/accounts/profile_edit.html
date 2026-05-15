@@ -1,0 +1,45 @@
+{% extends "blog/base.html" %}
+
+{% block titulo %}Editar perfil — CoderBlog{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <h1>Editar perfil</h1>
+    <p>Actualizá tus datos.</p>
+</div>
+
+<div class="form-wrapper">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="{{ user_form.first_name.id_for_label }}">Nombre</label>
+            {{ user_form.first_name }}
+        </div>
+        <div class="form-group">
+            <label for="{{ user_form.last_name.id_for_label }}">Apellido</label>
+            {{ user_form.last_name }}
+        </div>
+        <div class="form-group">
+            <label for="{{ user_form.email.id_for_label }}">Email</label>
+            {{ user_form.email }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ perfil_form.avatar.id_for_label }}">Avatar</label>
+            {{ perfil_form.avatar }}
+        </div>
+        <div class="form-group">
+            <label for="{{ perfil_form.link.id_for_label }}">Link</label>
+            {{ perfil_form.link }}
+        </div>
+        <div class="form-group">
+            <label for="{{ perfil_form.biografia.id_for_label }}">Biografía</label>
+            {{ perfil_form.biografia }}
+        </div>
+
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </form>
+</div>
+{% endblock %}
+

@@ -1,0 +1,42 @@
+{% extends "blog/base.html" %}
+
+{% block titulo %}Registro — CoderBlog{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <h1>Registro</h1>
+    <p>Creá tu cuenta con usuario, email y contraseña.</p>
+</div>
+
+<div class="form-wrapper">
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Usuario</label>
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email</label>
+            {{ form.email }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.password1.id_for_label }}">Contraseña</label>
+            {{ form.password1 }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.password2.id_for_label }}">Repetir contraseña</label>
+            {{ form.password2 }}
+        </div>
+
+        {% if form.errors %}
+            <div style="margin-bottom: 1rem; color: #b91c1c;">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <button class="btn btn-primary" type="submit">Crear cuenta</button>
+    </form>
+</div>
+{% endblock %}
+
