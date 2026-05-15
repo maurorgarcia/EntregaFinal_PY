@@ -1,0 +1,47 @@
+{% extends "blog/base.html" %}
+
+{% block titulo %}Inicio — BlogDeMauro{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <h1>Últimas publicaciones</h1>
+    <p>Bienvenido al blog. Aquí encontrarás los artículos más recientes.</p>
+</div>
+
+{% if articulos %}
+    {% for articulo in articulos %}
+    <div class="card">
+        <h2>{{ articulo.titulo }}</h2>
+        <div class="meta">
+            <span>✍️ {{ articulo.autor }}</span>
+            <span>📅 {{ articulo.fecha_publicacion|date:"d M Y, H:i" }}</span>
+        </div>
+        {% if articulo.subtitulo %}
+            <p class="excerpt"><em>{{ articulo.subtitulo }}</em></p>
+        {% endif %}
+        <p class="excerpt">{{ articulo.cuerpo|truncatewords:40 }}</p>
+
+        {% if articulo.comentarios.all %}
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                <p style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">Comentarios:</p>
+                {% for comment in articulo.comentarios.all %}
+                    <div style="margin-bottom: 0.75rem;">
+                        <p style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.1rem;">{{ comment.nombre_usuario }}</p>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">{{ comment.contenido }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="card">
+        <div class="no-results">
+            <div class="icon">📝</div>
+            <h2>No hay artículos todavía</h2>
+            <p>Empezá publicando algo nuevo.</p>
+            <a href="{% url 'blog:crear_articulo' %}" class="btn btn-primary" style="margin-top: 1rem; text-decoration: none;">Crear primer artículo</a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

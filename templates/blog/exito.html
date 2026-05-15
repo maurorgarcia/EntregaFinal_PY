@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+
+{% block titulo %}¡Éxito! — BlogDeMauro{% endblock %}
+
+{% block contenido %}
+<div class="form-wrapper">
+    <div class="success-box">
+        <div class="check-icon">✅</div>
+        <h2>{{ mensaje }}</h2>
+        <p>La operación se completó correctamente.</p>
+        <div class="actions">
+            <a href="{% url 'blog:inicio' %}" class="btn btn-primary">Ir al Inicio</a>
+            {% if tipo == 'autor' %}
+                <a href="{% url 'blog:crear_autor' %}" class="btn btn-outline">Crear otro autor</a>
+            {% elif tipo == 'articulo' %}
+                <a href="{% url 'blog:crear_articulo' %}" class="btn btn-outline">Crear otro artículo</a>
+            {% elif tipo == 'comentario' %}
+                <a href="{% url 'blog:crear_comentario' %}" class="btn btn-outline">Crear otro comentario</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

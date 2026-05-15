@@ -1,0 +1,57 @@
+{% extends "blog/base.html" %}
+
+{% block titulo %}Buscar Artículos — BlogDeMauro{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <h1>Buscar artículos</h1>
+    <p>Busca artículos por título o contenido.</p>
+</div>
+
+<form method="GET" action="{% url 'blog:buscar' %}">
+    <div class="search-bar">
+        {{ form.query }}
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </div>
+</form>
+
+{% if resultados is not None %}
+    {% if resultados %}
+        <p class="results-count">Se encontraron {{ resultados|length }} resultado{{ resultados|length|pluralize }}.</p>
+
+        {% for articulo in resultados %}
+        <div class="card">
+            <h2>{{ articulo.titulo }}</h2>
+            <div class="meta">
+                <span>✍️ {{ articulo.autor }}</span>
+                <span>📅 {{ articulo.fecha_publicacion|date:"d M Y, H:i" }}</span>
+            </div>
+            {% if articulo.subtitulo %}
+                <p class="excerpt"><em>{{ articulo.subtitulo }}</em></p>
+            {% endif %}
+            <p class="excerpt">{{ articulo.cuerpo|truncatewords:40 }}</p>
+
+            {% if articulo.comentarios.all %}
+                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                    <p style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">Comentarios:</p>
+                    {% for comment in articulo.comentarios.all %}
+                        <div style="margin-bottom: 0.75rem;">
+                            <p style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.1rem;">{{ comment.nombre_usuario }}</p>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">{{ comment.contenido }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="card">
+            <div class="no-results">
+                <div class="icon">🔍</div>
+                <h2>Sin resultados</h2>
+                <p>No se encontraron artículos que coincidan con tu búsqueda.</p>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+{% endblock %}

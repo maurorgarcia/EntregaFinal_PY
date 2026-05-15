@@ -1,0 +1,33 @@
+{% extends "blog/base.html" %}
+
+{% block titulo %}Nuevo Autor — BlogDeMauro{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <h1>Registrar nuevo autor</h1>
+    <p>Completa los datos para agregar un autor al blog.</p>
+</div>
+
+<div class="form-wrapper">
+    <form method="POST">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <ul class="errorlist">
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary">Publicar Artículo</button>
+        <a href="{% url 'blog:inicio' %}" class="btn btn-outline" style="margin-top: 0.5rem; text-decoration: none;">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
