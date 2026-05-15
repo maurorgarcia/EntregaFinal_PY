@@ -20,7 +20,6 @@ class MensajeForm(forms.ModelForm):
 
     def __init__(self, *args, usuario=None, **kwargs):
         super().__init__(*args, **kwargs)
-        # Por UX, evitamos que el usuario se envíe mensajes a sí mismo.
         queryset = User.objects.all()
         if usuario and usuario.is_authenticated:
             queryset = queryset.exclude(pk=usuario.pk)

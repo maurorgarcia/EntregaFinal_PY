@@ -11,5 +11,4 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    # En desarrollo, servir uploads desde MEDIA_URL (avatar, imágenes de pages).
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

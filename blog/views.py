@@ -18,7 +18,6 @@ from .models import Articulo, Autor, Comentario, Pagina
 
 
 def inicio(request):
-    # Home del blog: muestra los últimos artículos creados.
     articulos = Articulo.objects.all()[:5]
     return render(request, "blog/inicio.html", {"articulos": articulos})
 
@@ -78,8 +77,6 @@ def crear_comentario(request):
 
 
 def buscar_articulos(request):
-    # Buscador simple para Articulo; sirve como ejemplo de view "común"
-    # (no CBV) que procesa un form por GET.
     form = BusquedaArticuloForm(request.GET or None)
     resultados = None
 
@@ -100,12 +97,10 @@ def buscar_articulos(request):
 
 
 class AboutView(TemplateView):
-    # Vista estática "Acerca de mí" requerida por la consigna en /about/
     template_name = "blog/about.html"
 
 
 class PaginaListView(ListView):
-    # Listado de Pages en /pages/ con búsqueda opcional por querystring (?q=...).
     model = Pagina
     template_name = "blog/pages_list.html"
     context_object_name = "paginas"
@@ -127,14 +122,12 @@ class PaginaListView(ListView):
 
 
 class PaginaDetailView(DetailView):
-    # Detalle de una Page en /pages/<id>/ (desde "Leer más" en el listado).
     model = Pagina
     template_name = "blog/page_detail.html"
     context_object_name = "pagina"
 
 
 class PaginaCreateView(LoginRequiredMixin, CreateView):
-    # Crear una Page (solo logueado). El autor se setea automáticamente con request.user.
     model = Pagina
     form_class = PaginaForm
     template_name = "blog/page_form.html"
@@ -146,8 +139,6 @@ class PaginaCreateView(LoginRequiredMixin, CreateView):
 
 
 class PaginaUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    # Editar una Page (solo logueado y solo si sos el autor).
-    # UserPassesTestMixin es el "mixin" pedido: restringe permisos por objeto.
     model = Pagina
     form_class = PaginaForm
     template_name = "blog/page_form.html"
@@ -161,7 +152,6 @@ class PaginaUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 
 class PaginaDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    # Borrar una Page (solo logueado y solo si sos el autor).
     model = Pagina
     template_name = "blog/page_confirm_delete.html"
     success_url = reverse_lazy("blog:pages")
