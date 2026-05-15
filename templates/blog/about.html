@@ -5,15 +5,17 @@
 {% block contenido %}
 <div class="page-header">
     <h1>Acerca de mí</h1>
-    <p>Este es mi blog en Django para la entrega final.</p>
+    <p>Quién soy y qué vas a encontrar en este sitio.</p>
 </div>
 
 <div class="card">
-    <h2>Hola, soy Mauro</h2>
-    <p class="excerpt">
-        Acá podés contar quién sos, qué te gusta construir y el objetivo de esta web.
-        La idea es tener una vista visible en <code>/about/</code> como pide la consigna.
-    </p>
+    <h2>Hola, soy Mauro García</h2>
+    <p class="excerpt">Este blog es mi proyecto final para CoderHouse, desarrollado con Django.</p>
+    <p class="excerpt">Incluye:</p>
+    <ul style="margin: 1rem 0 0 1.25rem; color: var(--text-secondary);">
+        <li>Pages con listado, detalle y CRUD (solo autores logueados).</li>
+        <li>Autenticación: login, registro y perfil con avatar.</li>
+        <li>Mensajería interna entre usuarios.</li>
+    </ul>
 </div>
 {% endblock %}
-

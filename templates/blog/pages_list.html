@@ -5,7 +5,7 @@
 {% block contenido %}
 <div class="page-header">
     <h1>Páginas</h1>
-    <p>Listado de páginas publicadas.</p>
+    <p>Explorá las páginas publicadas. Podés buscar por título, subtítulo o contenido.</p>
 </div>
 
 <form method="get" class="search-bar">
@@ -44,8 +44,9 @@
         </p>
         {% if request.user.is_authenticated %}
             <a class="btn btn-primary" style="margin-top: 1rem; text-decoration: none;" href="{% url 'blog:page_create' %}">Crear primera página</a>
+        {% else %}
+            <p class="excerpt" style="margin-top: 1rem;">Iniciá sesión para poder crear, editar o borrar páginas.</p>
         {% endif %}
     </div>
 {% endif %}
 {% endblock %}
-

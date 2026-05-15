@@ -31,7 +31,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-primary);
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 40%);
             color: var(--text-primary);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
@@ -140,14 +140,18 @@
 
         /* Estilo de los articulos */
         .card {
-            border-bottom: 1px solid var(--border);
-            padding: 2rem 0;
-            margin-bottom: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 0 rgba(17, 24, 39, 0.03);
             transition: var(--transition);
         }
 
-        .card:last-child {
-            border-bottom: none;
+        .card:hover {
+            box-shadow: 0 6px 18px rgba(17, 24, 39, 0.06);
+            transform: translateY(-1px);
         }
 
         .card h2 {
@@ -308,6 +312,7 @@
                     <li>
                         <form method="post" action="{% url 'accounts:logout' %}">
                             {% csrf_token %}
+                            <input type="hidden" name="next" value="{% url 'blog:inicio' %}">
                             <button type="submit">Salir</button>
                         </form>
                     </li>

@@ -5,7 +5,7 @@
 {% block contenido %}
 <div class="page-header">
     <h1>Últimas publicaciones</h1>
-    <p>Bienvenido al blog. Acá vas a ver los artículos más recientes.</p>
+    <p>Bienvenido a mi proyecto final. Navegá por Pages, perfil y mensajes desde el menú.</p>
 </div>
 
 {% if articulos %}
@@ -37,9 +37,8 @@
 {% else %}
     <div class="card">
         <h2>No hay artículos todavía</h2>
-        <p class="excerpt">Empezá publicando algo nuevo.</p>
+        <p class="excerpt">Podés crear autores, artículos y comentarios para completar el contenido inicial.</p>
         <a href="{% url 'blog:crear_articulo' %}" class="btn btn-primary" style="margin-top: 1rem; text-decoration: none; width: auto;">Crear primer artículo</a>
     </div>
 {% endif %}
 {% endblock %}
-
