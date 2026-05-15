@@ -47,6 +47,11 @@ class Comentario(models.Model):
 
 
 class Pagina(models.Model):
+    # Modelo principal del proyecto final (Pages):
+    # - 2 x CharField: titulo, subtitulo
+    # - RichText: cuerpo (ckeditor)
+    # - ImageField: imagen
+    # - DateTime: fecha
     titulo = models.CharField(max_length=200)
     subtitulo = models.CharField(max_length=200)
     cuerpo = RichTextField()

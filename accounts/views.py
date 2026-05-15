@@ -8,6 +8,7 @@ from .models import Perfil
 
 
 def signup(request):
+    # Registro: solicita username, email y password (UserCreationForm + email).
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -23,12 +24,14 @@ def signup(request):
 
 @login_required
 def profile(request):
+    # Vista protegida por decorador (@login_required) como pide la consigna.
     perfil, _ = Perfil.objects.get_or_create(user=request.user)
     return render(request, "accounts/profile.html", {"perfil": perfil})
 
 
 @login_required
 def profile_edit(request):
+    # Edición de datos del usuario + perfil (incluye avatar con request.FILES).
     perfil, _ = Perfil.objects.get_or_create(user=request.user)
 
     if request.method == "POST":
@@ -48,4 +51,3 @@ def profile_edit(request):
         "accounts/profile_edit.html",
         {"user_form": user_form, "perfil_form": perfil_form},
     )
-
